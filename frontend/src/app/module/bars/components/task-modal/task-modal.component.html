@@ -1,0 +1,67 @@
+<button [disabled]="!(auth.user.role.role === 'ProjectManager')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#newTask">
+  New Task
+</button>
+
+<!-- Modal task -->
+<div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newTaskTitle">Create New Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div>
+              <h5 class="text-left">Project:</h5>
+            </div>
+            <select class="custom-select" name="projectselect" [(ngModel)]="newTask.project" id="ProjectSelect">
+              <option *ngFor="let project of projects" [ngValue]="project">{{project.projectcode}}</option>
+            </select>
+            <div>
+              <h5 class="text-left">Task description:</h5>
+            </div>
+            <div class="col-md-12">
+              <input type="text" name="description" class="form-control form-control-lg flat-input"  [(ngModel)]="newTask.description">
+            </div>
+            <div>
+              <h5 class="text-left">Due date:</h5>
+            </div>
+            <div class="col-md-12">
+              <input type="date" name="duedate" class="form-control form-control-lg flat-input"  [(ngModel)]="newTask.duedate">
+            </div>
+            <div>
+              <h5 class="text-left">Estimation(days):</h5>
+            </div>
+            <div class="col-md-12">
+              <input type="text" name="estimation" class="form-control form-control-lg flat-input"  [(ngModel)]="newTask.estimation">
+            </div>
+            <div>
+              <h5 class="text-left">Priority:</h5>
+            </div>
+            <select class="custom-select" name="priorityselect" [(ngModel)]="newTask.priority" id="PrioritySelect">
+              <option *ngFor="let priority of priorities" [ngValue]="priority">{{priority.priority}}</option>
+            </select>
+            <div>
+              <h5 class="text-left">Assignee:</h5>
+            </div>
+            <select class="custom-select" name="assigneeselect" [(ngModel)]="newTask.assignee" id="AssigneeSelect">
+              <option *ngFor="let assignee of assignees" [ngValue]="assignee">{{assignee.name}}({{assignee.role.role}})</option>
+
+            </select>
+
+
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button (click)="saveTask()" type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

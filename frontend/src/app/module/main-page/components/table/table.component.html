@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+
+<body>
+<div class ="container-fluid">
+  <div class="row justify-content-md-center">
+    <div class="col-md-11  table-box">
+      <div class="row">
+      <div class="col-md-8 block1">
+        <input type="text" name="search" class="form-control form-control-lg flat-input" placeholder="Search">
+      </div>
+      <div class="col-md-2">
+      <button type="submit" class="btn btn-block btn-red">Search</button>
+      </div>
+        <div class="col-md-2">
+          <input type="checkbox" class="checkbox" id="checkbox" checked>
+          <label class="form-check-label" for="checkbox"><b>AssigneedOnMe</b></label>
+        </div>
+      </div>
+
+        <table class="table table-responsive-lg table-bordered">
+          <thead>
+          <tr>
+            <th>Project code</th>
+            <th>TaskCode</th>
+            <th>DueDate</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Priority</th>
+            <th>Estimation(days)</th>
+            <th>Assignee</th>
+            <th>Creator</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody id="myTable">
+          <tr *ngFor="let task of tasks">
+            <td>{{task.project.projectcode}}</td>
+            <td>{{task.code}}</td>
+            <td>{{task.duedate}}</td>
+            <td>{{task.creationdate}}</td>
+            <td>{{task.updatedate}}</td>
+            <td>{{task.priority.priority}}</td>
+            <td>{{task.estimation}}</td>
+            <td>{{task.assignee.name}}</td>
+            <td>{{task.creator.name}}</td>
+            <td>{{task.status.status}}</td>
+            <td><button class="btn btn-light btn-red" [routerLink]="['/task', task.id]">Details</button></td>
+          </tr>
+          </tbody>
+          <tfoot>
+          </tfoot>
+        </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <button [disabled]="this.page === 0" class="btn btn-light btn-red" (click)="goFirst()" ><<</button>
+              <button [disabled]="this.page === 0" class="btn btn-light btn-red" (click)="goPrevious()"><</button>
+              <a class="text-dark btn"><b>{{page+1}}</b></a>
+                <button [disabled]="this.page === totalPages-1" class="btn btn-light btn-red" (click)="goNext()">></button>
+              <button [disabled]="this.page === totalPages-1" class="btn btn-light btn-red" (click)="goLast()">>></button>
+            </ul>
+          </nav>
+      <div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

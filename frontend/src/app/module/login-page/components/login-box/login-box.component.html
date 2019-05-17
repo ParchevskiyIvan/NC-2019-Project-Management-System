@@ -1,0 +1,32 @@
+<title>Login</title>
+<body>
+<div class ="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-md-auto login-box">
+      <h1 class="text-center wdi-red">Login</h1>
+      <hr>
+      <form>
+        <div class="form-row">
+          <div class="col-md-12">
+            <input type="email"  class="form-control form-control-lg flat-input" id="email"
+                   placeholder="E-mail" required minlength="5" name="email" [(ngModel)]="user.email" #email="ngModel" autocomplete="on">
+          </div>
+          <div class="col-md-12">
+            <input type="password" name="password" id="password" class="form-control form-control-lg flat-input" placeholder="Password" #password="ngModel"
+                   [(ngModel)]="user.password" required minlength="5">
+          </div>
+
+          <!-- Material unchecked -->
+          <!-- Filled-in orange example -->
+          <div class="form-check ">
+            <input type="checkbox" class="checkbox" id="checkbox" checked>
+            <label class="form-check-label" for="checkbox"><b>Remember me</b></label>
+          </div>
+
+          <button  (click)="onSubmit()" type="button" class="btn btn-lg btn-block btn-login">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>

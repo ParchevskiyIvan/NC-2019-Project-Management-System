@@ -1,0 +1,8 @@
+.btn-primary{
+  border-radius: 0;
+  border: 1px solid #DD3247;
+  background: #DD3247;
+  color: #fff;
+  -webkit-transition: all 0.8s;
+  transition: all 0.8s;
+}

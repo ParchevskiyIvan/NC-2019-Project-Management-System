@@ -1,0 +1,23 @@
+<nav class="navbar navbar-inverse navbar-expand-xl navbar-dark">
+  <div class="navbar-header d-flex col">
+    <a class="navbar-brand" href="#"><i class="fa fa-cube"></i>Project<b>Management</b></a>
+  </div>
+  <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+    <form class="navbar-form form-inline">
+    </form>
+    <ul class="nav navbar-nav navbar-right ml-auto">
+      <app-user-modal></app-user-modal>
+      <app-project-modal></app-project-modal>
+      <app-task-modal></app-task-modal>
+
+      <li class="nav-item dropdown">
+        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle userEntity-action"><b>{{auth.user.name}} ({{auth.user.role.role}})</b><b class="caret"></b></a>
+
+        <ul class="dropdown-menu">
+                    <button (click)="auth.logOut()" class="dropdown-item" type="button"><i class="material-icons">&#xE8AC;</i> Logout</button>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+

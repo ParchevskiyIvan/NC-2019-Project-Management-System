@@ -1,0 +1,57 @@
+<button [disabled]="!(auth.user.role.role === 'Admin')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">
+  New User
+</button>
+
+<!-- Modal user -->
+<div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newUserTitle">Create New User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-row">
+            <div class="col-md-12">
+              <div>
+                <h5 class="text-left">Name:</h5>
+              </div>
+              <input type="text" name="name" class="form-control form-control-lg flat-input" [(ngModel)]="newUser.name" required minlength="4" #login="ngModel"
+                      (change)="userExistsByName = false">
+              <small *ngIf="userExistsByName" class="text-danger">This Name is already exists</small>
+            </div>
+            <div>
+              <h5 class="text-left">Email:</h5>
+            </div>
+            <div class="col-md-12">
+              <input type="email" name="email" class="form-control form-control-lg flat-input" [(ngModel)]="newUser.email" required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}" #email="ngModel"
+                     autocomplete="off" (change)="userExistsByEmail = false">
+              <p *ngIf="userExistsByEmail" class="text-danger">This email is already exists</p>
+            </div>
+            <div>
+              <h5 class="text-left">Password:</h5>
+            </div>
+            <div class="col-md-12">
+              <input type="password" name="password" class="form-control form-control-lg flat-input" [(ngModel)]="newUser.password" required minlength="4" #password="ngModel">
+            </div>
+            <div>
+              <h5 class="text-left">Role:</h5>
+            </div>
+            <select  name="select" [(ngModel)]="newUser.role" class="custom-select" id="role">
+              <option *ngFor="let role of roles" [ngValue]="role">{{role.role}}</option>
+            </select>
+
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button  (click)="saveUser()" type="button" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
