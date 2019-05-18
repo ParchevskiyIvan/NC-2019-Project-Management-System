@@ -3,6 +3,7 @@ import {RoleModel} from "./rolemodel";
 export class AuthUserModel {
   id: string;
   name: string;
+  surname: string;
   email: string;
   role: RoleModel;
 
@@ -11,6 +12,7 @@ export class AuthUserModel {
     cloneUserModel.id = user.id;
     cloneUserModel.email = user.email;
     cloneUserModel.name = user.name;
+    cloneUserModel.surname = user.surname;
     cloneUserModel.role = user.role;
     return cloneUserModel;
   }
@@ -21,6 +23,7 @@ export class AuthUserModel {
 export class UserWithPassword{
   password:string;
   name:string;
+  surname:string;
   role:string;
   email:string;
 }

@@ -4,6 +4,7 @@ import {RoleService} from "../../../../service/role/role.service";
 import {UserModel} from "../../../../model/usermodel";
 import {UserService} from "../../../../service/user/user.service";
 import {AuthService} from "../../../../service/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user-modal',
@@ -16,13 +17,29 @@ export class UserModalComponent implements OnInit {
   public roles: RoleModel[];
   public userExistsByEmail: boolean = false;
   public userExistsByName: boolean = false;
-
-  constructor(private roleService: RoleService, private userService: UserService, private auth: AuthService) {
+  public users: UserModel[];
+  constructor(private roleService: RoleService, private userService: UserService, private auth: AuthService,
+  private router: Router) {
   }
 
   ngOnInit() {
+    if(this.auth.user == null){
+    } else {
+      this.loadRoles();
+      this.loadUsers();
+    }
+  }
+
+  private loadRoles():void {
     this.roleService.getRoles().subscribe(roles => {
       this.roles = roles as RoleModel[];
+    })
+  }
+
+
+  private loadUsers(): void {
+    this.userService.getUsers().subscribe(users => {
+      this.users = users as UserModel[];
     })
   }
 

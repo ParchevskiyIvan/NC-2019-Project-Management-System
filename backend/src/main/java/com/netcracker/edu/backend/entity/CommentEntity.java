@@ -10,8 +10,8 @@ public class CommentEntity {
     private String comment;
 //    private int tasksId;
 //    private int usersId;
-    private TaskEntity tasksByTasksId;
-    private UserEntity usersByUsersId;
+    private TaskEntity task;
+    private UserEntity user;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class CommentEntity {
     }
 
     @Basic
-    @Column(name = "CommentEntity")
+    @Column(name = "comment")
     public String getComment() {
         return comment;
     }
@@ -72,21 +72,21 @@ public class CommentEntity {
 
     @ManyToOne
     @JoinColumn(name = "Tasks_id", referencedColumnName = "id", nullable = false)
-    public TaskEntity getTasksByTasksId() {
-        return tasksByTasksId;
+    public TaskEntity getTask() {
+        return task;
     }
 
-    public void setTasksByTasksId(TaskEntity tasksByTasksId) {
-        this.tasksByTasksId = tasksByTasksId;
+    public void setTask(TaskEntity task) {
+        this.task = task;
     }
 
     @ManyToOne
     @JoinColumn(name = "Users_id", referencedColumnName = "id", nullable = false)
-    public UserEntity getUsersByUsersId() {
-        return usersByUsersId;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUsersByUsersId(UserEntity usersByUsersId) {
-        this.usersByUsersId = usersByUsersId;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

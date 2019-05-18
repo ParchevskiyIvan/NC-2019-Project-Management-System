@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../../../../service/task/task.service";
 import {TaskPage} from "../../../../model/taskpage";
-import {NgbPaginationModule} from "@ng-bootstrap/ng-bootstrap";
-import {PageForTasksTable, TaskModel} from "../../../../model/taskmodel";
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TaskModel} from "../../../../model/taskmodel";
 import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
+import {AuthService} from "../../../../service/auth/auth.service";
 
 @Component({
   selector: 'app-table',
@@ -21,37 +19,41 @@ export class TableComponent implements OnInit {
   public pageSize: number = 6;
   public totalPages: number;
 
-  constructor(private taskService: TaskService, private router: Router) {
+  constructor(private taskService: TaskService, private router: Router, private auth: AuthService) {
   }
 
   ngOnInit() {
-    this.loadTasks();
+    if(this.auth.user == null){
+      this.router.navigate(['']);
+    }
+    else{
+    this.loadTasks();}
   }
 
   public loadTasks(): void {
-    this.taskService.getTaskPage(this.page, this.pageSize).subscribe( task => {
+    this.taskService.getTaskPage(this.page, this.pageSize).subscribe(task => {
       this.tasks = task['content'];
-      this.totalPages = task['totalPages']
+      this.totalPages = task['totalPages'];
     })
   }
 
-  public goFirst():void{
+  public goFirst(): void {
     this.page = 0;
     this.loadTasks();
   }
 
-  public goLast():void{
-    this.page = this.totalPages-1;
+  public goLast(): void {
+    this.page = this.totalPages - 1;
     this.loadTasks();
   }
 
-  public goNext():void{
-    this.page = this.page+1;
+  public goNext(): void {
+    this.page = this.page + 1;
     this.loadTasks();
   }
 
-  public goPrevious(): void{
-    this.page = this.page-1;
+  public goPrevious(): void {
+    this.page = this.page - 1;
     this.loadTasks();
   }
 

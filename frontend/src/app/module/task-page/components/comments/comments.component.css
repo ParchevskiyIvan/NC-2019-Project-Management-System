@@ -1,0 +1,16 @@
+.wdi-red{
+  color: #DD3247;
+}
+
+.btn-action{
+  border-radius: 0;
+  background: #DD3247;
+  color: #fff;
+  -webkit-transition: all 0.8s;
+  transition: all 0.8s;
+}
+.btn-action:hover{
+  background: transparent;
+  border: 1px solid #DD3247;
+  color: #DD3247;
+}

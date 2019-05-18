@@ -12,3 +12,14 @@
   width: 465px;
   margin-left: 5px;
 }
+
+.my-custom-scrollbar {
+
+}
+.table-wrapper-scroll-y {
+  /*display: block;*/
+  width: 300px;
+  position: absolute;
+  top: 20px;
+  bottom: 100px;
+}

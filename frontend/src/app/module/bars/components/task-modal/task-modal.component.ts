@@ -13,6 +13,7 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {StatusService} from "../../../../service/status/status.service";
 import {StatusModel} from "../../../../model/statusmodel";
 import {take} from "rxjs/operators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-task-modal',
@@ -31,19 +32,23 @@ export class TaskModalComponent implements OnInit {
 
   constructor(private userService: UserService, private projectService: ProjectService,
               private priorityService: PriorityService, private taskService: TaskService,
-              private auth: AuthService, private statusService: StatusService) {
+              private auth: AuthService, private statusService: StatusService, private router: Router) {
   }
 
   ngOnInit() {
-    this.projectService.getProjects().subscribe(projects => {
-      this.projects = projects as ProjectModel[];
-    })
-    this.userService.getUsers().subscribe(assignees => {
-      this.assignees = assignees as UserModel[];
-    })
-    this.priorityService.getPriority().subscribe(priorities => {
-      this.priorities = priorities as PriorityModel[];
-    })
+    if(this.auth.user == null)
+    {}
+    else {
+      this.projectService.getProjects().subscribe(projects => {
+        this.projects = projects as ProjectModel[];
+      })
+      this.userService.getUsers().subscribe(assignees => {
+        this.assignees = assignees as UserModel[];
+      })
+      this.priorityService.getPriority().subscribe(priorities => {
+        this.priorities = priorities as PriorityModel[];
+      })
+    }
 
   }
 

@@ -12,6 +12,9 @@ import {StatusModel} from "../../model/statusmodel";
 import {UserService} from "../../service/user/user.service";
 import {UserModel} from "../../model/usermodel";
 import {take} from "rxjs/operators";
+import {CommentService} from "../../service/comment/comment.service";
+import {CommentModel} from "../../model/commentmodel";
+import {ProjectModel} from "../../model/projectmodel";
 
 @Component({
   selector: 'app-task-page',
@@ -29,16 +32,22 @@ export class TaskPageComponent implements OnInit {
   users: UserModel[];
   status: StatusModel;
 
+
   constructor(private auth: AuthService, private http: HttpClient, private router: Router,
               private taskService: TaskService, private activatedRoute: ActivatedRoute,
-              private priorityService: PriorityService, private statusService: StatusService, private userService: UserService) {
-  }
+              private priorityService: PriorityService, private statusService: StatusService, private userService: UserService,
+  ) {}
 
   ngOnInit() {
+    if(this.auth.user == null)
+    {
+      this.router.navigate(['']);
+    }
+    else {
     this.loadTask();
     this.loadPriorities();
     this.loadStatuses();
-    this.loadUsers();
+    this.loadUsers();}
   }
 
   private getId(): void {
@@ -51,7 +60,7 @@ export class TaskPageComponent implements OnInit {
     this.getId();
     this.taskService.getTaskById(this.taskId).subscribe(task => {
       this.task = task as TaskModel;
-    });
+    } , error1 => this.router.navigate(['']));
   }
 
   private loadPriorities(): void {
@@ -73,7 +82,6 @@ export class TaskPageComponent implements OnInit {
   }
 
   private updateAssignee(){
-    this.task.assignee = this.auth.user;
     this.taskService.updateTask(this.task).subscribe(
       task => {
         this.task = task;
@@ -117,4 +125,5 @@ export class TaskPageComponent implements OnInit {
       this.editMode = false
     }
   }
+
 }

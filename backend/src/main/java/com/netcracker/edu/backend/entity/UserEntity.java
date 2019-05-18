@@ -8,6 +8,7 @@ import java.util.Objects;
 public class UserEntity {
     private int id;
     private String name;
+    private String surname;
     private String email;
     private String password;
     //private int rolesId;
@@ -34,6 +35,15 @@ public class UserEntity {
         this.name = name;
     }
 
+    @Basic
+    @Column(name = "surname")
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     @Basic
     @Column(name = "email")
@@ -71,13 +81,14 @@ public class UserEntity {
         return id == that.id &&
                 //rolesId == that.rolesId &&
                 Objects.equals(name, that.name) &&
+                Objects.equals(surname, that.surname) &&
                 Objects.equals(email, that.email) &&
                 Objects.equals(password, that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password /*,rolesId*/);
+        return Objects.hash(id, name, surname, email, password /*,rolesId*/);
     }
 
     @ManyToOne

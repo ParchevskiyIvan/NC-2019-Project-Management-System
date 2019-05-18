@@ -1,85 +1,102 @@
 <app-navbar></app-navbar>
 
 <body>
-<div class ="container-fluid" *ngIf="task">
+<div class="container-fluid" *ngIf="task">
   <div class="row justify-content-md-center">
     <div class="col-md-10 col-md-auto task-box">
       <div class="row">
         <div class="col-md-4">
-        <h1 class="text-lg-left wdi-red" >Project №{{task.project.projectcode}}</h1>
-      </div>
-      <div class="col-md-4">
-        <h1 *ngIf="editMode" class="text-lg-right wdi-red" >Edit Mode Activated!</h1>
-      </div>
+          <h1 class="text-lg-left wdi-red">Project №{{task.project.projectcode}}</h1>
+        </div>
+        <div class="col-md-4">
+          <h1 *ngIf="editMode" class="text-lg-right wdi-red">Edit Mode Activated!</h1>
+        </div>
       </div>
       <div class="row">
-      <div class="col-md-2">
-        <h5 class="text-left wdi-red">Project description:</h5>
-      </div>
+        <div class="col-md-2">
+          <h5 class="text-left wdi-red">Project description:</h5>
+        </div>
       </div>
       <div>
-        <textarea class="text-zone" disabled name="comment" cols="122" rows="10" value="{{task.project.projectdescription}}"></textarea>
+        <textarea class="text-zone" disabled name="comment" cols="122" rows="10"
+                  value="{{task.project.projectdescription}}"></textarea>
       </div>
       <hr>
       <h3 class="text-left wdi-red">Actions</h3>
       <div class="row">
         <div class="col-md-2">
-            <button (click)="activateEditMode()" type="button" class="btn btn-block btn-action" >Edit</button>
+          <button [disabled]="(auth.user.role.role === 'ProjectManager')" (click)="activateEditMode()"
+                  type="button" class="btn btn-block btn-action">Edit</button>
         </div>
         <div class="col-md-2">
-          <button [disabled]="auth.user.id === task.assignee.id" (click)="updateAssignee()" type="button" class="btn btn-block btn-action">AssignOnMe</button>
+          <button  [disabled]="auth.user.role.role === 'Admin'" type="button"
+                  class="btn btn-block btn-action" data-toggle="modal" data-target="#assign">Assign
+          </button>
         </div>
         <div></div>
         <div class="col-md-2">
           <button type="button" class="btn btn-block btn-action" [disabled]="!(((task.status.status === 'Opened') &&
-       (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Developer')))" (click)="updateTaskStatus('InProgress')">Start</button>
+       (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Developer')))"
+                  (click)="updateTaskStatus('InProgress')">Start
+          </button>
         </div>
         <div class="col-md-2">
           <button type="button" class="btn btn-block btn-action" [disabled]="!((task.status.status === 'InProgress') &&
-          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Developer'))" (click)="updateTaskStatus('Resolved')">Resolve</button>
+          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Developer'))"
+                  (click)="updateTaskStatus('Resolved')">Resolve
+          </button>
         </div>
         <div class="col-md-2">
           <button type="button" class="btn btn-block btn-action" [disabled]="!((task.status.status === 'Resolved') &&
-          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Developer'))" (click)="updateTaskStatus('ReadyForTest')">Ready for test</button>
+          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Developer'))"
+                  (click)="updateTaskStatus('ReadyForTest')">Ready for test
+          </button>
         </div>
         <div class="col-md-2">
           <button type="button" class="btn btn-block btn-action" [disabled]="!((task.status.status === 'ReadyForTest') &&
-          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Tester'))" (click)="updateTaskStatus('Opened')">ReOpen</button>
+          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Tester'))"
+                  (click)="updateTaskStatus('Opened')">ReOpen
+          </button>
         </div>
         <div class="col-md-2">
           <button type="button" class="btn btn-block btn-action" [disabled]="!((task.status.status === 'ReadyForTest') &&
-          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Tester'))" (click)="updateTaskStatus('Closed')">Close</button>
+          (task.assignee.id == auth.user.id) && (auth.user.role.role === 'Tester'))"
+                  (click)="updateTaskStatus('Closed')">Close
+          </button>
         </div>
+      </div>
+      <hr>
+      <h3 class="text-left wdi-red">Details</h3>
+      <div class="row">
+        <div class="col-md-1">
+          <h5 class="text-left wdi-red">Priority:</h5>
         </div>
-        <hr>
-            <h3 class="text-left wdi-red">Details</h3>
-        <div class="row">
-          <div class="col-md-1">
-            <h5 class="text-left wdi-red">Priority:</h5>
-          </div>
-            <div class="col-md-2 block1">
-              <h5 class="text-left wdi-red-text text-class" *ngIf="!editMode">{{task.priority.priority}}</h5>
-              <select *ngIf="editMode" class="custom-select" name="priorityselect" [(ngModel)]="task.priority" id="PrioritySelect">
-                <option *ngFor="let priority of priorities" [ngValue]="priority">{{priority.priority}}</option>
-              </select>
-            </div>
-          <div class="col-md-2">
-            <h5 class="text-left wdi-red">Assignee:</h5>
-          </div>
-          <div class="col-md-2 block1">
-            <h5 class="text-left wdi-red-text text-class" *ngIf="!editMode">{{task.assignee.name}}</h5>
-            <select *ngIf="editMode" class="custom-select" name="assigneeselect" [(ngModel)]="task.assignee" id="AssigneeSelect">
-              <option *ngFor="let user of users" [ngValue]="user">{{user.name}}</option>
-            </select>
-          </div>
-          </div>
+        <div class="col-md-2 block1">
+          <h5 class="text-left wdi-red-text text-class" *ngIf="!editMode">{{task.priority.priority}}</h5>
+          <select *ngIf="editMode" class="custom-select" name="priorityselect" [(ngModel)]="task.priority"
+                  id="PrioritySelect">
+            <option *ngFor="let priority of priorities" [ngValue]="priority">{{priority.priority}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <h5 class="text-left wdi-red">Assignee:</h5>
+        </div>
+        <div class="col-md-2 block1">
+          <h5 class="text-left wdi-red-text text-class" *ngIf="!editMode">{{task.assignee.name}}</h5>
+          <select *ngIf="editMode" class="custom-select" name="assigneeselect" [(ngModel)]="task.assignee"
+                  id="AssigneeSelect">
+            <option *ngFor="let user of users" [ngValue]="user">{{user.name}}</option>
+          </select>
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-1">
           <h5 class="text-left wdi-red">Status:</h5>
         </div>
         <div class="col-md-2 block1">
           <h5 class="text-left wdi-red-text text-class" *ngIf="!editMode">{{task.status.status}}</h5>
-          <select *ngIf="editMode" class="custom-select" name="statusselect" [(ngModel)]="task.status" id="StatusSelect">
+          <select *ngIf="editMode" class="custom-select" name="statusselect" [(ngModel)]="task.status"
+                  id="StatusSelect">
             <option *ngFor="let status of statuses" [ngValue]="status">{{status.status}}</option>
           </select>
         </div>
@@ -88,7 +105,8 @@
         </div>
         <div class="col-md-2 block1">
           <h5 class="text-left wdi-red-text text-class" *ngIf="!editMode">{{task.creator.name}}</h5>
-          <select *ngIf="editMode" class="custom-select" name="creatorselect" [(ngModel)]="task.creator" id="CreatoreSelect">
+          <select *ngIf="editMode" class="custom-select" name="creatorselect" [(ngModel)]="task.creator"
+                  id="CreatoreSelect">
             <option *ngFor="let user of users" [ngValue]="user">{{user.name}}</option>
           </select>
         </div>
@@ -99,47 +117,52 @@
         </div>
         <div class="col-md-2 block1">
           <h5 class="text-left wdi-red-text text-class" *ngIf="!editMode">{{task.estimation}}</h5>
-          <input *ngIf="editMode" type="text" name="estimation" class="form-control form-control-lg flat-input" placeholder="Estimation" [(ngModel)]="task.estimation">
+          <input *ngIf="editMode" type="text" name="estimation" class="form-control form-control-lg flat-input"
+                 placeholder="Estimation" [(ngModel)]="task.estimation">
         </div>
       </div>
       <hr>
       <h3 class="text-left wdi-red">Description</h3>
 
 
-        <div class="row">
-          <div class="col-md-1">
+      <div class="row">
+        <div class="col-md-1">
           <h5 class="text wdi-red">Created:</h5>
         </div>
-          <div class="col-md-2 block1">
-            <h5 class="text-left wdi-red-text text-class" >{{task.creationdate}}</h5>
-          </div>
-          <div class="col-md-1">
-            <h5 class="text wdi-red">Updated:</h5>
-          </div>
-          <div class="col-md-2 block1">
-            <h5 class="text-left wdi-red-text text-class" >{{task.updatedate}}</h5>
-          </div>
-          <div class="col-md-1">
-            <h5 class="text wdi-red">Resolved:</h5>
-          </div>
-          <div class="col-md-2 block1">
-            <h5 class="text-left wdi-red-text text-class" *ngIf="task.status.status !== 'Opened' || task.status.status !== 'InProgress'">{{task.resolvedate}}</h5>
-            <h5 class="text-left wdi-red-text text-class" *ngIf="task.status.status === 'Opened' || task.status.status === 'InProgress'">Not Resolved</h5>
-          </div>
-          <div class="col-md-1">
-            <h5 class="text wdi-red">Closed:</h5>
-          </div>
-          <div class="col-md-2 block1">
-            <h5 class="text-left wdi-red-text text-class" *ngIf="task.status.status === 'Closed'">{{task.closeddate}}</h5>
-            <h5 class="text-left wdi-red-text text-class" *ngIf="task.status.status !== 'Closed'">Not Closed</h5>
-          </div>
+        <div class="col-md-2 block1">
+          <h5 class="text-left wdi-red-text text-class">{{task.creationdate}}</h5>
         </div>
-        <div class="row">
+        <div class="col-md-1">
+          <h5 class="text wdi-red">Updated:</h5>
+        </div>
+        <div class="col-md-2 block1">
+          <h5 class="text-left wdi-red-text text-class">{{task.updatedate}}</h5>
+        </div>
+        <div class="col-md-1">
+          <h5 class="text wdi-red">Resolved:</h5>
+        </div>
+        <div class="col-md-2 block1">
+          <h5 class="text-left wdi-red-text text-class"
+              *ngIf="task.status.status !== 'Opened' || task.status.status !== 'InProgress'">{{task.resolvedate}}</h5>
+          <h5 class="text-left wdi-red-text text-class"
+              *ngIf="task.status.status === 'Opened' || task.status.status === 'InProgress'">Not Resolved</h5>
+        </div>
+        <div class="col-md-1">
+          <h5 class="text wdi-red">Closed:</h5>
+        </div>
+        <div class="col-md-2 block1">
+          <h5 class="text-left wdi-red-text text-class" *ngIf="task.status.status === 'Closed'">{{task.closeddate}}</h5>
+          <h5 class="text-left wdi-red-text text-class" *ngIf="task.status.status !== 'Closed'">Not Closed</h5>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-md-6">
-          <textarea class="text-zone" *ngIf="!editMode" disabled name="comment" cols="122" rows="10" value="{{task.description}}"></textarea>
-          <textarea *ngIf="editMode" name="comment" cols="122" rows="10"  [(ngModel)]="task.description">{{task.description}}</textarea>
+          <textarea class="text-zone" *ngIf="!editMode" disabled name="comment" cols="122" rows="10"
+                    value="{{task.description}}"></textarea>
+          <textarea *ngIf="editMode" name="comment" cols="122" rows="10"
+                    [(ngModel)]="task.description">{{task.description}}</textarea>
         </div>
-        </div>
+      </div>
       <hr>
       <h3 class="text-left wdi-red">Attachements</h3>
       <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -164,21 +187,41 @@
         </a>
       </div>
       <hr>
-      <h3 class="text-left wdi-red">Comments</h3>
-      <div class="row">
-        <div class="col-md-6">
-          <textarea name="comment" cols="122" rows="10"></textarea>
+      <app-comments></app-comments>
+    </div>
+    <!--modal-->
+    <div class="modal fade" id="assign" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newUserTitle">Assign this Task</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-row">
+                <div class="col-md-12">
+                  <div>
+                    <h5 class="text-left">Assignee:</h5>
+                  </div>
+                  <select class="custom-select" name="assigneeselect" [(ngModel)]="task.assignee" id="assignee" size="4">
+                    <option *ngFor="let user of users" [ngValue]="user">{{user.name}}({{user.role.role}})</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button (click)="updateAssignee()" type="submit" class="btn btn-primary">Save</button>
+          </div>
         </div>
       </div>
-      <div class="row">
-      <div class="col-md-3">
-        <button type="button" class="btn btn-block btn-action">Add Comment</button>
-      </div>
-      </div>
-
-      </div>
-
-        </div>
-      </div>
-
+    </div>
+  </div>
+</div>
 </body>
+
+

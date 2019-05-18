@@ -14,6 +14,7 @@ import java.util.Optional;
 @Service
 public class TaskServiceImpl implements TaskService {
 
+    @Autowired
     private TaskRepository repository;
 
     @Autowired
@@ -67,6 +68,7 @@ public class TaskServiceImpl implements TaskService {
         return repository.findById(id);
     }
 
+    @Override
     public Iterable<TaskEntity> findTasksByProjectId(Integer Projects_id){
         return this.repository.findTasksByProjectId(Projects_id);
     }

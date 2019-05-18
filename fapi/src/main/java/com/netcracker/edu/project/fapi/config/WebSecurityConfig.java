@@ -41,26 +41,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public JwtAuthenticationFilter authenticationTokenFilterBean(){
+    public JwtAuthenticationFilter authenticationTokenFilterBean() {
         return new JwtAuthenticationFilter();
     }
 
     @Bean
-    public BCryptPasswordEncoder encoder(){
+    public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
+//        http.cors().and().csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/generate-token/*", "/sign-up","/api/**").permitAll()
+//                .antMatchers("/**").denyAll()
+//                .and()
+//                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+//                .and()
+//                .formLogin()
+//                .loginPage("/")
+//                .defaultSuccessUrl("/main",true)
+//                .failureUrl("/")
+//                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/token/*", "/signup").permitAll()
+                .antMatchers("/generate-token/*", "/sign-up").permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-    }
+}
 
 }

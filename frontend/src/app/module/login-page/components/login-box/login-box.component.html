@@ -8,8 +8,8 @@
       <form>
         <div class="form-row">
           <div class="col-md-12">
-            <input type="email"  class="form-control form-control-lg flat-input" id="email"
-                   placeholder="E-mail" required minlength="5" name="email" [(ngModel)]="user.email" #email="ngModel" autocomplete="on">
+            <input type="email"  pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}" class="form-control form-control-lg flat-input" id="email"
+                   placeholder="E-mail" required minlength="5" name="email" [(ngModel)]="user.email" #email="ngModel" autocomplete="on" (focusout)="ifExistsByEmail(email.value)">
           </div>
           <div class="col-md-12">
             <input type="password" name="password" id="password" class="form-control form-control-lg flat-input" placeholder="Password" #password="ngModel"
