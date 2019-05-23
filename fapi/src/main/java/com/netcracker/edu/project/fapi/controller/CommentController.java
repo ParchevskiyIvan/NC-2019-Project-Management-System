@@ -17,12 +17,12 @@ public class CommentController {
 
 
     @GetMapping("/taskId/{id}")
-    public List<CommentModel> findCommentsByTaskId(@PathVariable int id){
+    public List<CommentModel> findCommentsByTaskId(@PathVariable int id) {
         return commentService.findCommentsByTaskId(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public CommentModel saveProject(@RequestBody CommentModel commentModel){
+    public CommentModel saveProject(@RequestBody CommentModel commentModel) {
         return commentService.saveComment(commentModel);
     }
 }

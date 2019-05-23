@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { SearchComponent } from './components/search/search.component';
 import { TableComponent } from './components/table/table.component';
 import {FormsModule} from "@angular/forms";
 import {AppRoutingModule} from "../../app-routing.module";
@@ -9,7 +8,7 @@ import {PaginationModule} from "ngx-bootstrap";
 
 
 @NgModule({
-  declarations: [SearchComponent, TableComponent],
+  declarations: [TableComponent],
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -20,7 +19,7 @@ import {PaginationModule} from "ngx-bootstrap";
     PaginationModule
   ],
   exports: [
-    TableComponent, SearchComponent
+    TableComponent
   ],
   bootstrap:[
     TableComponent

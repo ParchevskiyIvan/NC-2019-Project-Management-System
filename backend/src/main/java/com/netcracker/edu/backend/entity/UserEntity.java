@@ -11,7 +11,6 @@ public class UserEntity {
     private String surname;
     private String email;
     private String password;
-    //private int rolesId;
     private RoleEntity role;
 
     @Id
@@ -47,7 +46,9 @@ public class UserEntity {
 
     @Basic
     @Column(name = "email")
-    public String getEmail() { return email; }
+    public String getEmail() {
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -63,23 +64,12 @@ public class UserEntity {
         this.password = password;
     }
 
-//    @Basic
-//    @Column(name = "Roles_id")
-//    public int getRolesId() {
-//        return rolesId;
-//    }
-//
-//    public void setRolesId(int rolesId) {
-//        this.rolesId = rolesId;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
         return id == that.id &&
-                //rolesId == that.rolesId &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(surname, that.surname) &&
                 Objects.equals(email, that.email) &&

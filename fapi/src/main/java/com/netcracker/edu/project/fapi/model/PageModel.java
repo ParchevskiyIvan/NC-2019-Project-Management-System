@@ -15,7 +15,6 @@ public class PageModel {
     }
 
 
-
     public PageModel(List<TaskModel> content, int totalPages, int numberOfElements, int size, int totalElements) {
         this.content = content;
         this.totalPages = totalPages;

@@ -1,9 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {UserModel} from "../../../../model/usermodel";
-import {RoleModel} from "../../../../model/rolemodel";
-import {RoleService} from "../../../../service/role/role.service";
-import {UserService} from "../../../../service/user/user.service";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../../../service/auth/auth.service";
 
@@ -15,12 +10,12 @@ import {AuthService} from "../../../../service/auth/auth.service";
 export class TopbarComponent implements OnInit {
 
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService) {
+  }
 
   ngOnInit() {
 
   }
-
 
 
 }

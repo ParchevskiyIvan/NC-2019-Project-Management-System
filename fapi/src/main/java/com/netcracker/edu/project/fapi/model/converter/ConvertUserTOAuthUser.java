@@ -12,6 +12,7 @@ public class ConvertUserTOAuthUser implements Converter<UserModel, AuthUser> {
         authUser.setId(user.getId());
         authUser.setEmail(user.getEmail());
         authUser.setName(user.getName());
+        authUser.setSurname(user.getSurname());
         authUser.setRole(user.getRole());
         return authUser;
     }

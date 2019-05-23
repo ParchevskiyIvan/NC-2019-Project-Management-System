@@ -7,17 +7,6 @@ export class UserModel {
   email: string;
   password?: string;
   role: RoleModel;
-
-  static cloneBase(user: UserModel):UserModel{
-    const cloneUserModel: UserModel = new UserModel();
-    cloneUserModel.id = user.id;
-    cloneUserModel.name = user.name;
-    cloneUserModel.surname = user.surname;
-    cloneUserModel.email = user.email;
-    cloneUserModel.password = user.password;
-    cloneUserModel.role = user.role;
-    return cloneUserModel;
-  }
 }
 
 export class AuthToken{

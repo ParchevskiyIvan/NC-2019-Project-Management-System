@@ -1,77 +1,82 @@
-<button *ngIf="!(auth.user==null)" [disabled]="!(auth.user.role.role === 'Admin')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#newUser">
+<button *ngIf="!(auth.user==null)" [disabled]="!(auth.user.role.role === 'Admin')" type="button" class="btn btn-primary"
+        data-toggle="modal" data-target="#newUser">
   New User
 </button>
 
 <!-- Modal user -->
-<div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="newUserTitle">Create New User</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button (click)="clearForm()" type="reset" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-row">
+          <div class="form-row" [formGroup]="formControl">
             <div class="col-md-12">
               <div>
                 <h5 class="text-left">Name:</h5>
               </div>
-              <input type="text" name="login" class="form-control form-control-lg flat-input" [(ngModel)]="newUser.name" required pattern="^[A-Z]{1}[a-z]" minlength="2" maxlength="30" #login="ngModel" (focusout)="ifExistsByName(login.value)"
-                      (change)="userExistsByName = false">
-              <p [hidden]="login.valid || login.untouched" class="text-danger">Name is incorrect</p>
-              <p *ngIf="userExistsByName" class="text-danger">This Name already exists</p>
+              <div>
+                <input formControlName="name" type="text" name="login" autocomplete="off"
+                       class="form-control form-control-lg flat-input names"
+                       [(ngModel)]="newUser.name" minlength="2" maxlength="30">
+              </div>
             </div>
-            <!--<div class="col-md-12">-->
-              <!--<div>-->
-                <!--<h5 class="text-left">Surname:</h5>-->
-              <!--</div>-->
-              <!--<input type="text" name="surname" class="form-control form-control-lg flat-input" [(ngModel)]="newUser.surname" required pattern="^[A-Z]{1}[a-z]*$" minlength="2" maxlength="30" #login="ngModel" (focusout)="ifExistsByName(surname.value)"-->
-                     <!--(change)="userExistsByName = false">-->
-              <!--<p [hidden]="surname.valid || surname.untouched" class="text-danger">Name is incorrect</p>-->
-              <!--<p *ngIf="userExistsByName" class="text-danger">This Name already exists</p>-->
-            <!--</div>-->
+            <div class="col-md-12">
+              <div>
+                <h5 class="text-left">Surname:</h5>
+              </div>
+              <div>
+                <input formControlName="surname" type="text" name="surname" autocomplete="off"
+                       class="form-control form-control-lg flat-input names"
+                       [(ngModel)]="newUser.surname" minlength="2" maxlength="30">
+              </div>
+            </div>
             <div>
               <h5 class="text-left">Email:</h5>
             </div>
             <div class="col-md-12">
-              <input type="email" name="email" class="form-control form-control-lg flat-input" [(ngModel)]="newUser.email"  required pattern="[a-zA-Z0-9_]+@[a-zA-Z_]+?\.[a-zA-Z]{2,4}" #email="ngModel" (focusout)="ifExistsByEmail(email.value)"
-                     autocomplete="off" (change)="userExistsByEmail = false">
-              <p [hidden]="email.valid || email.untouched" class="text-danger">Email is incorrect</p>
-              <p *ngIf="userExistsByEmail" class="text-danger">This email is already exists</p>
+              <input formControlName="email" type="email" name="email" class="form-control form-control-lg flat-input"
+                     [(ngModel)]="newUser.email" autocomplete="off" maxlength="40">
             </div>
             <div>
               <h5 class="text-left">Password:</h5>
             </div>
             <div class="col-md-12">
-              <input type="password" name="password" class="form-control form-control-lg flat-input" [(ngModel)]="newUser.password" required pattern="[a-zA-Z0-9_]" minlength="4" #password="ngModel">
-              <p [hidden]="password.valid || password.untouched" class="text-danger">Password is incorrect</p>
+              <input formControlName="password" type="text" name="password" autocomplete="off"
+                     placeholder="Letters and numbers only"
+                     class="form-control form-control-lg flat-input"
+                     [(ngModel)]="newUser.password" minlength="6" maxlength="30">
             </div>
             <div>
               <h5 class="text-left">Role:</h5>
             </div>
-            <select  name="select" [(ngModel)]="newUser.role" class="custom-select" id="role">
+            <select formControlName="role" name="select" [(ngModel)]="newUser.role" class="custom-select" id="role"
+                    size="4">
               <option *ngFor="let role of roles" [ngValue]="role">{{role.role}}</option>
             </select>
-
-
-
-
-
-          <div class="modal-footer col-md-12">
-            <button   class="btn btn-primary" type="submit"  (click)="saveUser()">Save</button>
-          </div>
           </div>
         </form>
-
-
       </div>
 
+      <div *ngIf="!formControl.valid">
+        <hr>
+        <p><b>All fields should be filled</b></p>
+
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="!formControl.valid" class="btn btn-primary" type="submit"
+                (click)="ifExistsByEmail(newUser.email)">Save
+        </button>
+      </div>
+      <h4 *ngIf="this.notification" class="text-center wdi-red">Email should be unique!</h4>
     </div>
   </div>
 </div>
 
 
-<!--[disabled]="!((password != null && login != null && password != null) && (email.valid || email.untouched) && (password.valid || password.untouched))"-->

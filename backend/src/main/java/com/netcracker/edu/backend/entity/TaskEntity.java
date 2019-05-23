@@ -1,17 +1,13 @@
-package com.netcracker.edu.backend.entity;//package com.netcracker.edu.backend.entity;
+package com.netcracker.edu.backend.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tasks", schema = "mydb", catalog = "")
 public class TaskEntity {
     private int id;
-    //private String name;
     private String code;
     private LocalDate creationdate;
     private LocalDate updatedate;
@@ -19,9 +15,7 @@ public class TaskEntity {
     private LocalDate resolvedate;
     private LocalDate closeddate;
     private int estimation;
-    //private String shortdescription;
     private String description;
-    //private byte[] attachments;
     private ProjectEntity project;
     private PriorityEntity priority;
     private UserEntity creator;
@@ -38,16 +32,6 @@ public class TaskEntity {
     public void setId(int id) {
         this.id = id;
     }
-
-//    @Basic
-//    @Column(name = "name")
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     @Basic
     @Column(name = "taskcode")
@@ -107,7 +91,8 @@ public class TaskEntity {
     }
 
     public void setCloseddate(LocalDate closeddate) {
-        this.closeddate = closeddate;}
+        this.closeddate = closeddate;
+    }
 
     @Basic
     @Column(name = "estimation")
@@ -119,16 +104,6 @@ public class TaskEntity {
         this.estimation = estimation;
     }
 
-//    @Basic
-//    @Column(name = "shortdescription")
-//    public String getShortdescription() {
-//        return shortdescription;
-//    }
-//
-//    public void setShortdescription(String shortdescription) {
-//        this.shortdescription = shortdescription;
-//    }
-
     @Basic
     @Column(name = "description")
     public String getDescription() {
@@ -139,85 +114,6 @@ public class TaskEntity {
         this.description = description;
     }
 
-//    @Basic
-//    @Column(name = "timeused")
-//    public int getTimeused() {
-//        return timeused;
-//    }
-//
-//    public void setTimeused(int timeused) {
-//        this.timeused = timeused;
-//    }
-
-//    @Basic
-//    @Column(name = "attachments")
-//    public byte[] getAttachments() {
-//        return attachments;
-//    }
-//
-//    public void setAttachments(byte[] attachments) {
-//        this.attachments = attachments;
-//    }
-
-//    @Basic
-//    @Column(name = "timeleft")
-//    public int getTimeleft() {
-//        return timeleft;
-//    }
-//
-//    public void setTimeleft(int timeleft) {
-//        this.timeleft = timeleft;
-//    }
-
-//    @Basic
-//    @Column(name = "Projects_id")
-//    public int getProjectsId() {
-//        return projectsId;
-//    }
-//
-//    public void setProjectsId(int projectsId) {
-//        this.projectsId = projectsId;
-//    }
-//
-//    @Basic
-//    @Column(name = "Priorities_id")
-//    public int getPrioritiesId() {
-//        return prioritiesId;
-//    }
-//
-//    public void setPrioritiesId(int prioritiesId) {
-//        this.prioritiesId = prioritiesId;
-//    }
-
-//    @Basic
-//    @Column(name = "Reporter_id")
-//    public int getReporterId() {
-//        return reporterId;
-//    }
-//
-//    public void setReporterId(int reporterId) {
-//        this.reporterId = reporterId;
-//    }
-//
-//    @Basic
-//    @Column(name = "Assignee_id1")
-//    public int getAssigneeId1() {
-//        return assigneeId1;
-//    }
-//
-//    public void setAssigneeId1(int assigneeId1) {
-//        this.assigneeId1 = assigneeId1;
-//    }
-//
-//    @Basic
-//    @Column(name = "Status_id")
-//    public int getStatusId() {
-//        return statusId;
-//    }
-//
-//    public void setStatusId(int statusId) {
-//        this.statusId = statusId;
-//    }
 
     @Override
     public boolean equals(Object o) {
@@ -228,27 +124,17 @@ public class TaskEntity {
                 //name == that.name &&
                 code == that.code &&
                 estimation == that.estimation &&
-                //timeused == that.timeused &&
-                //timeleft == that.timeleft &&
-//                projectsId == that.projectsId &&
-//                prioritiesId == that.prioritiesId &&
-//                reporterId == that.reporterId &&
-//                assigneeId1 == that.assigneeId1 &&
-//                statusId == that.statusId &&
                 Objects.equals(creationdate, that.creationdate) &&
                 Objects.equals(updatedate, that.updatedate) &&
                 Objects.equals(duedate, that.duedate) &&
                 Objects.equals(resolvedate, that.resolvedate) &&
                 Objects.equals(closeddate, that.closeddate) &&
-                //Objects.equals(shortdescription, that.shortdescription) &&
                 Objects.equals(description, that.description);
-                //Arrays.equals(attachments, that.attachments);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(id, code, creationdate, updatedate, duedate, resolvedate, closeddate, estimation, /*shortdescription,*/ description /*timeused, timeleft*//*,projectsId,prioritiesId, reporterId, assigneeId1, statusId*/);
-        //result = 31 * result + Arrays.hashCode(attachments);
         return result;
     }
 

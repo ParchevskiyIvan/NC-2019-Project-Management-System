@@ -17,7 +17,7 @@ public class StatusServiceImpl implements StatusService {
     private String backendServerUrl;
 
     @Override
-    public List<StatusModel> findAll(){
+    public List<StatusModel> findAll() {
         RestTemplate restTemplate = new RestTemplate();
         StatusModel[] statusResponse = restTemplate.getForObject(backendServerUrl + "/api/status",
                 StatusModel[].class);

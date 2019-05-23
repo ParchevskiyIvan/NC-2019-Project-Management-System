@@ -39,9 +39,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity getUserByID(@PathVariable(name = "id") Integer id){
+    public ResponseEntity getUserByID(@PathVariable(name = "id") Integer id) {
         Optional<UserEntity> user = userService.findUserById(id);
-        if(user.isPresent()){
+        if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {
             return ResponseEntity.notFound().build();

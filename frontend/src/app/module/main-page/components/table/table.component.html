@@ -5,16 +5,22 @@
   <div class="row justify-content-md-center">
     <div class="col-md-11  table-box">
       <div class="row">
-      <div class="col-md-8 block1">
-        <input type="text" name="search" class="form-control form-control-lg flat-input" placeholder="Search">
+      <div class="col-md-3 block1">
+        <select  name="select" [(ngModel)]="this.sort" class="custom-select" id="sort" size="4">
+          <option [ngValue]="null">Creation order</option>
+          <option [ngValue]=sorts[0] >Sort by priority↑</option>
+          <option [ngValue]=sorts[1] >Sort by priority↓</option>
+        </select>
       </div>
-      <div class="col-md-2">
-      <button type="submit" class="btn btn-block btn-red">Search</button>
-      </div>
-        <div class="col-md-2">
-          <input type="checkbox" class="checkbox" id="checkbox" checked>
-          <label class="form-check-label" for="checkbox"><b>AssigneedOnMe</b></label>
+        <div class="col-md-3 block1">
+          <select  name="select" [(ngModel)]="filter" class="custom-select" id="filter" size="4">
+            <option [ngValue]="null">All</option>
+            <option *ngFor="let status of statuses" [ngValue]="status.status" >{{status.status}}</option>
+          </select>
         </div>
+      <div class="col-md-2">
+      <button (click)="loadTasks()" type="submit" class="btn btn-block btn-red">Filter&Sort</button>
+      </div>
       </div>
 
         <table class="table table-responsive-lg table-bordered">
@@ -42,8 +48,8 @@
             <td>{{task.updatedate}}</td>
             <td>{{task.priority.priority}}</td>
             <td>{{task.estimation}}</td>
-            <td>{{task.assignee.name}}</td>
-            <td>{{task.creator.name}}</td>
+            <td>{{task.assignee.name +' '+ task.assignee.surname}}</td>
+            <td>{{task.creator.name+ ' ' + task.creator.surname}}</td>
             <td>{{task.status.status}}</td>
             <td><button class="btn btn-light btn-red" [routerLink]="['/task', task.id]">Details</button></td>
           </tr>
@@ -53,11 +59,11 @@
         </table>
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
-              <button [disabled]="this.page === 0" class="btn btn-light btn-red" (click)="goFirst()" ><<</button>
+              <button [disabled]="(this.page === 0 || this.page === 1)" class="btn btn-light btn-red" (click)="goFirst()" ><<</button>
               <button [disabled]="this.page === 0" class="btn btn-light btn-red" (click)="goPrevious()"><</button>
               <a class="text-dark btn"><b>{{page+1}}</b></a>
                 <button [disabled]="this.page === totalPages-1" class="btn btn-light btn-red" (click)="goNext()">></button>
-              <button [disabled]="this.page === totalPages-1" class="btn btn-light btn-red" (click)="goLast()">>></button>
+              <button [disabled]="(this.page === totalPages-1 || this.page === totalPages-2)" class="btn btn-light btn-red" (click)="goLast()">>></button>
             </ul>
           </nav>
       <div>

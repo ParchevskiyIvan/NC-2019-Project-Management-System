@@ -24,9 +24,9 @@ public class StatusController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity getUserByID(@PathVariable(name = "id") Integer id){
+    public ResponseEntity getUserByID(@PathVariable(name = "id") Integer id) {
         Optional<StatusEntity> status = statusService.findStatusById(id);
-        if(status.isPresent()){
+        if (status.isPresent()) {
             return ResponseEntity.ok(status.get());
         } else {
             return ResponseEntity.notFound().build();

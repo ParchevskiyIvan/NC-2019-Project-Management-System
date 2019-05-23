@@ -12,3 +12,12 @@
   width: 465px;
   margin-left: 5px;
 }
+
+.desc{
+  text-transform: capitalize;
+}
+
+textarea{
+  height: 200px;
+}
+

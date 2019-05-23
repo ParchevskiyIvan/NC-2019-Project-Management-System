@@ -4,7 +4,6 @@ package com.netcracker.edu.backend.controller;
 import com.netcracker.edu.backend.entity.CommentEntity;
 import com.netcracker.edu.backend.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +14,7 @@ public class CommentController {
     private CommentService commentService;
 
     @RequestMapping(value = "/taskId/{id}", method = RequestMethod.GET)
-    public Iterable<CommentEntity> findCommentsByTaskId(@PathVariable(name = "id") Integer id){
+    public Iterable<CommentEntity> findCommentsByTaskId(@PathVariable(name = "id") Integer id) {
         Iterable<CommentEntity> tasks = commentService.findCommentsByTaskId(id);
 
         return tasks;

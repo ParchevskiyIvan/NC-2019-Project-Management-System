@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ProjectRepository extends CrudRepository<ProjectEntity, Integer> {
     ProjectEntity findProjectById(Integer id);
+    ProjectEntity findByProjectcode(String projectcode);
 }

@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ProjectService {
     ProjectModel saveProject(ProjectModel project);
+
     List<ProjectModel> findAll();
-    ProjectModel getProjectById(Integer id);
-    ProjectModel getProjectByCode(String code);
+
+    ProjectModel findByCode(String code);
 }

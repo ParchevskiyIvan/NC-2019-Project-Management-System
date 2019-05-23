@@ -1,4 +1,4 @@
-package com.netcracker.edu.backend.entity;//package com.netcracker.edu.backend.entity;
+package com.netcracker.edu.backend.entity;
 
 import javax.persistence.*;
 import java.util.Objects;

@@ -41,7 +41,7 @@ table, th, td, tr, thead, tbody {
   transition: all 0.8s;
 }
 
-.btn-search:hover{
+.btn-red:hover{
   background: transparent;
   border: 1px solid #DD3247;
   color: #DD3247;

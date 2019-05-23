@@ -8,8 +8,12 @@ import java.util.List;
 public interface UserService {
 
     UserModel findByEmail(String email);
-    UserModel findByName (String name);
+
+    UserModel findByName(String name);
+
     List<UserModel> findAll();
+
     UserModel saveUser(UserModel userModel);
+
     UserModel getUserById(int id);
 }

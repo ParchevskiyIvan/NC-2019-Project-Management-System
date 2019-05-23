@@ -1,39 +1,50 @@
-<button *ngIf="!(auth.user == null)" [disabled]="!(auth.user.role.role === 'ProjectManager')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#newProject">
+<button *ngIf="!(auth.user == null)" [disabled]="!(auth.user.role.role === 'ProjectManager')" type="button"
+        class="btn btn-primary" data-toggle="modal" data-target="#newProject">
   New Project
 </button>
 
 <!-- Modal project -->
-<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="newProjectTitle">Create New Project</h5>
-        <button type="reset" class="close" data-dismiss="modal" aria-label="Close">
+        <button (click)="clearForm()" type="reset" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-row">
+          <div class="form-row" [formGroup]="formControl">
             <div>
-              <h5 class="text-left">Project:</h5>
+              <h5 class="text-left">Project Code:</h5>
             </div>
             <div class="col-md-12">
-              <input type="text"  maxlength="20" name="prcode" class="form-control form-control-lg flat-input"
-                     pattern="[a-zA-Z0-9-]+" required [(ngModel)]="newProject.projectcode">
+              <input type="text" minlength="3" autocomplete="off" maxlength="6" name="prcode"
+                     formControlName="projectcode" class="form-control form-control-lg flat-input"
+                     required="required" placeholder="Numbers and Letters only" [(ngModel)]="newProject.projectcode">
             </div>
             <div>
               <h5 class="text-left">Project description:</h5>
             </div>
             <div class="col-md-12">
-              <textarea type="text" name="description" maxlength="150" class="form-control form-control-lg flat-input"  [(ngModel)]="newProject.projectdescription"></textarea>
+              <textarea type="text" name="description" maxlength="499" formControlName="summary"
+                        class="form-control form-control-lg flat-input desc"
+                        [(ngModel)]="newProject.projectdescription"></textarea>
             </div>
-
+          </div>
+          <div *ngIf="!formControl.valid">
+            <hr>
+            <p><b>All fields should be filled</b></p>
           </div>
           <div class="modal-footer">
-          <button (click)="saveProject()" type="submit" class="btn btn-primary">Save</button>
+            <button [disabled]="!formControl.valid" (click)="ifExistsByCode(newProject.projectcode)" type="submit"
+                    class="btn btn-primary">Save
+            </button>
           </div>
         </form>
+        <h4 *ngIf="this.notification" class="text-center wdi-red">ProjectCode should be unique!</h4>
 
       </div>
 

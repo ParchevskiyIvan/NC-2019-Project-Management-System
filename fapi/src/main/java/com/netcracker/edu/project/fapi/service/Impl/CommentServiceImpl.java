@@ -26,6 +26,6 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentModel saveComment(CommentModel comment) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(backendServerUrl + "/api/comments",comment, CommentModel.class).getBody();
+        return restTemplate.postForEntity(backendServerUrl + "/api/comments", comment, CommentModel.class).getBody();
     }
 }

@@ -11,10 +11,14 @@
       <app-task-modal></app-task-modal>
 
       <li class="nav-item dropdown">
-        <a *ngIf="!(auth.user == null)" href="#" data-toggle="dropdown" class="nav-link dropdown-toggle userEntity-action"><b>{{auth.user.name}} ({{auth.user.role.role}})</b><b class="caret"></b></a>
+        <a *ngIf="!(auth.user == null)" href="#" data-toggle="dropdown"
+           class="nav-link dropdown-toggle userEntity-action"><b>{{auth.user.name + ' ' + auth.user.surname + '(' + auth.user.role.role + ')'}}</b><b
+          class="caret"></b></a>
 
         <ul class="dropdown-menu">
-                    <button (click)="auth.logOut()" class="dropdown-item" type="button"><i class="material-icons">&#xE8AC;</i> Logout</button>
+          <button (click)="auth.logOut()" class="dropdown-item" type="button"><i class="material-icons">&#xE8AC;</i>
+            Logout
+          </button>
         </ul>
       </li>
     </ul>

@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public interface StatusService {
     Iterable<StatusEntity> getAllStatus();
+
     Optional<StatusEntity> findStatusById(Integer id);
-    StatusEntity findByStatus (String status);
+
+    StatusEntity findByStatus(String status);
 }

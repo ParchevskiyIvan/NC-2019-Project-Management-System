@@ -12,7 +12,7 @@ public class ProjectModel {
     public ProjectModel() {
     }
 
-    public ProjectModel(int id,  String projectcode, String projectdescription) {
+    public ProjectModel(int id, String projectcode, String projectdescription) {
         this.id = id;
         this.projectcode = projectcode;
         this.projectdescription = projectdescription;

@@ -25,5 +25,7 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public StatusEntity findByStatus(String status) { return statusRepository.findByStatus(status);}
+    public StatusEntity findByStatus(String status) {
+        return statusRepository.findByStatus(status);
+    }
 }

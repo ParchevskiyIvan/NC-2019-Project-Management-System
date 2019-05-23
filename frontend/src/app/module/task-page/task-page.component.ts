@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {TaskModel} from "../../model/taskmodel";
 import {AuthService} from "../../service/auth/auth.service";
 import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TaskService} from "../../service/task/task.service";
-import {ProjectService} from "../../service/project/project.service";
 import {PriorityService} from "../../service/priority/priority.service";
 import {PriorityModel} from "../../model/prioritymodel";
 import {StatusService} from "../../service/status/status.service";
@@ -12,9 +11,7 @@ import {StatusModel} from "../../model/statusmodel";
 import {UserService} from "../../service/user/user.service";
 import {UserModel} from "../../model/usermodel";
 import {take} from "rxjs/operators";
-import {CommentService} from "../../service/comment/comment.service";
-import {CommentModel} from "../../model/commentmodel";
-import {ProjectModel} from "../../model/projectmodel";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-task-page',
@@ -31,23 +28,38 @@ export class TaskPageComponent implements OnInit {
   statuses: StatusModel[];
   users: UserModel[];
   status: StatusModel;
+  formControl: FormGroup;
 
 
   constructor(private auth: AuthService, private http: HttpClient, private router: Router,
               private taskService: TaskService, private activatedRoute: ActivatedRoute,
               private priorityService: PriorityService, private statusService: StatusService, private userService: UserService,
-  ) {}
+              private fb: FormBuilder, private cdRef: ChangeDetectorRef
+  ) {
+  }
 
   ngOnInit() {
-    if(this.auth.user == null)
-    {
+    if (this.auth.user == null) {
       this.router.navigate(['']);
+    } else {
+      this.loadTask();
+      this.loadPriorities();
+      this.loadStatuses();
+      this.loadUsers();
+      this.initReactForm();
     }
-    else {
-    this.loadTask();
-    this.loadPriorities();
-    this.loadStatuses();
-    this.loadUsers();}
+  }
+
+  initReactForm(): void {
+    this.formControl = this.fb.group({
+      priority: [],
+      status: [],
+      estimation: ['', Validators.required],
+      assignee: [],
+      reporter: [],
+      descriptionafk: [],
+      description: ['', Validators.required]
+    });
   }
 
   private getId(): void {
@@ -60,7 +72,7 @@ export class TaskPageComponent implements OnInit {
     this.getId();
     this.taskService.getTaskById(this.taskId).subscribe(task => {
       this.task = task as TaskModel;
-    } , error1 => this.router.navigate(['']));
+    }, error1 => this.router.navigate(['']));
   }
 
   private loadPriorities(): void {
@@ -81,7 +93,7 @@ export class TaskPageComponent implements OnInit {
     })
   }
 
-  private updateAssignee(){
+  private updateAssignee() {
     this.taskService.updateTask(this.task).subscribe(
       task => {
         this.task = task;
@@ -93,12 +105,11 @@ export class TaskPageComponent implements OnInit {
     this.statusService.findByStatus(status).pipe(take(1)).subscribe((stat) => {
       this.task.status = stat;
       this.task.updatedate = new Date();
-      if(status == "Resolved")
-      {
+      if (status == "Resolved") {
         this.task.resolvedate = new Date();
+      } else if (status == "Closed") {
+        this.task.closeddate = new Date();
       }
-      else if(status == "Closed")
-      {this.task.closeddate = new Date();}
 
       this.taskService.updateTask(this.task).subscribe(
         task => {
@@ -120,6 +131,7 @@ export class TaskPageComponent implements OnInit {
   private activateEditMode() {
     if (this.editMode == false) {
       this.editMode = true;
+      this.cdRef.detectChanges();
     } else {
       this.updateTask();
       this.editMode = false

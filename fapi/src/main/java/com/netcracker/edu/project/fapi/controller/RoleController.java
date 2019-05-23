@@ -20,7 +20,7 @@ public class RoleController {
     private RoleService roleService;
 
     @RequestMapping("")
-    public List<RoleModel> getRoles(){
+    public List<RoleModel> getRoles() {
         return roleService.findAll();
     }
 }

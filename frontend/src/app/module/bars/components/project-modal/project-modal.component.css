@@ -6,3 +6,15 @@
   -webkit-transition: all 0.8s;
   transition: all 0.8s;
 }
+
+.desc{
+  text-transform: capitalize;
+}
+
+.wdi-red{
+  color: #DD3247;
+}
+
+textarea{
+  height: 200px;
+}

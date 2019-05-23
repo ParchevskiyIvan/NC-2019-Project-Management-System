@@ -24,7 +24,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
 
-
     @Override
     public TaskModel saveTask(TaskModel task) {
         RestTemplate restTemplate = new RestTemplate();
@@ -37,21 +36,13 @@ public class TaskServiceImpl implements TaskService {
         return restTemplate.getForObject(backendServerUrl + "/api/tasks/" + id, TaskModel.class);
     }
 
-    @Override
-    public TaskModel updateTask(TaskModel task) {
-        RestTemplate restTemplate = new RestTemplate();
-        TaskModel taskById = getTaskById(task.getId());
-        taskById = task;
-        return restTemplate.postForObject(backendServerUrl + "/api/task/", task, TaskModel.class);
-    }
 
     @Override
-    public PageModel getPage(int page, int size) {
+    public PageModel getPage(int page, int size, String sort, String filter, String logid) {
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(backendServerUrl + "/api/tasks?page=" + page
-                + "&size=" + size, PageModel.class);
+                + "&size=" + size + "&sort=" + sort + "&filter=" + filter + "&logid=" + logid, PageModel.class);
     }
-
 
 
 }

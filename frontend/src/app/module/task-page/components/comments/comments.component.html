@@ -1,18 +1,24 @@
 <h3 class="text-left wdi-red">Comments</h3>
 <div class="row">
   <div class="col-md-6">
-    <div *ngIf="!commentAdding">
+    <div>
       <p *ngFor="let comment of comments; let i = index;">
-        {{comment.comment + ' (' + comment.user.name + '(' + comment.user.role.role + '))'}}
+        {{comment.comment + ' ' + comment.user.name + ' ' + comment.user.surname + '(' + comment.user.role.role + ')'}}
       </p>
     </div>
-    <div *ngIf="commentAdding">
-      <textarea name="comment" cols="122" rows="10" [(ngModel)]="newComment.comment"></textarea>
+    <div *ngIf="commentAdding" [formGroup]="formControl">
+      <textarea formControlName="comment" name="comment" maxlength="299" cols="122" rows="10"
+                [(ngModel)]="newComment.comment"></textarea>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-md-3">
-    <button type="button" class="btn btn-block btn-action" (click)="commentAddMode()">Add Comment</button>
+    <button *ngIf="!commentAdding" [disabled]="auth.user.role.role === 'Admin'" type="button"
+            class="btn btn-block btn-action" (click)="commentAddMode()">Add Comment
+    </button>
+    <button *ngIf="commentAdding" [disabled]="!formControl.valid" type="button" class="btn btn-block btn-action"
+            (click)="commentAddMode()">Add Comment
+    </button>
   </div>
 </div>

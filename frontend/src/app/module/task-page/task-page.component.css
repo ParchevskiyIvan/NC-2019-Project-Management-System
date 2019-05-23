@@ -73,8 +73,17 @@ div.block1{
   transition: all 0.8s;
 }
 
-.custom-select{
-  height: 47px;
+.custom-select-ass{
   width: 465px;
   margin-left: 5px;
+}
+
+.custom-select{
+  height: 47px;
+  width: 300px;
+  margin-left: 5px;
+}
+
+.closebtn{
+  margin-top: 20px;
 }

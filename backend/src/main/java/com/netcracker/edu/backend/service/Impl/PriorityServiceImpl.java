@@ -13,7 +13,7 @@ public class PriorityServiceImpl implements PriorityService {
     private PriorityRepository priorityRepository;
 
     @Override
-    public Iterable<PriorityEntity> getAllPriority(){
+    public Iterable<PriorityEntity> getAllPriority() {
         return priorityRepository.findAll();
     }
 }

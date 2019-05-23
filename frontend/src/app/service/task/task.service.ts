@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {ProjectModel} from "../../model/projectmodel";
+import {Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {PageForTasksTable, TaskModel} from "../../model/taskmodel";
+import {TaskModel} from "../../model/taskmodel";
 import {TaskPage} from "../../model/taskpage";
 
 @Injectable({
@@ -10,28 +9,24 @@ import {TaskPage} from "../../model/taskpage";
 })
 export class TaskService {
 
-  constructor(private http: HttpClient) { }
-
-
-
-  saveTask(task: TaskModel): Observable<TaskModel>{
-    return this.http.post<TaskModel>("/api/tasks", task);
+  constructor(private http: HttpClient) {
   }
 
-  getTasks(): Observable<TaskModel[]> {
-    return this.http.get<TaskModel[]>('/api/tasks');
+  saveTask(task: TaskModel): Observable<TaskModel> {
+    return this.http.post<TaskModel>("/api/tasks", task);
   }
 
   getTaskById(id: string): Observable<TaskModel> {
     return this.http.get<TaskModel>('/api/tasks/' + id);
   }
 
-  getTaskPage(page: number, size: number): Observable<TaskPage> {
-    return this.http.get<TaskPage>('/api/tasks?page=' + page + '&size=' + size);
+  getTaskPage(page: number, size: number, sort: string, filter: string, logid: string): Observable<TaskPage> {
+    return this.http.get<TaskPage>('/api/tasks?page=' + page + '&size=' + size + '&sort=' + sort + '&filter=' + filter +
+    '&logid=' + logid);
   }
 
-  updateTask(task:TaskModel):Observable<TaskModel>{
-    return this.http.patch<TaskModel>('api/tasks',task);
+  updateTask(task: TaskModel): Observable<TaskModel> {
+    return this.http.patch<TaskModel>('api/tasks', task);
   }
 
 

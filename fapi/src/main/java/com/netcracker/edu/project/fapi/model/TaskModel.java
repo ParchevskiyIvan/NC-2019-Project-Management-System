@@ -2,16 +2,13 @@ package com.netcracker.edu.project.fapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.security.Timestamp;
 import java.time.LocalDate;
-import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TaskModel {
 
 
     private int id;
-    //private String name;
     private String code;
     private LocalDate creationdate;
     private LocalDate updatedate;
@@ -19,9 +16,7 @@ public class TaskModel {
     private LocalDate resolvedate;
     private LocalDate closeddate;
     private int estimation;
-    //private String shortdescription;
     private String description;
-    //private byte[] attachments;
     private ProjectModel project;
     private PriorityModel priority;
     private UserModel assignee;
@@ -31,21 +26,20 @@ public class TaskModel {
     public TaskModel() {
     }
 
-    public TaskModel(int id, String code, LocalDate creationdate, LocalDate updatedate, LocalDate duedate,LocalDate resolvedate,LocalDate closeddate, int estimation,
-    String description, ProjectModel project, PriorityModel priority, UserModel assignee,StatusModel status, UserModel creator)
-    {
+    public TaskModel(int id, String code, LocalDate creationdate, LocalDate updatedate, LocalDate duedate, LocalDate resolvedate, LocalDate closeddate, int estimation,
+                     String description, ProjectModel project, PriorityModel priority, UserModel assignee, StatusModel status, UserModel creator) {
         this.id = id;
         this.code = code;
         this.creationdate = creationdate;
         this.updatedate = updatedate;
-        this.duedate =duedate;
+        this.duedate = duedate;
         this.resolvedate = resolvedate;
         this.closeddate = closeddate;
         this.estimation = estimation;
-        this.description =description;
+        this.description = description;
         this.project = project;
         this.priority = priority;
-        this.assignee =assignee;
+        this.assignee = assignee;
         this.status = status;
         this.creator = creator;
     }
@@ -57,14 +51,6 @@ public class TaskModel {
     public void setId(int id) {
         this.id = id;
     }
-
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
     public String getCode() {
         return code;

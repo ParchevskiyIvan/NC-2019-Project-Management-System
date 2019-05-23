@@ -26,7 +26,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findByName(String name) { return userRepository.findByName(name);}
+    public UserEntity findByName(String name) {
+        return userRepository.findByName(name);
+    }
 
     @Override
     public UserEntity saveUser(UserEntity userEntity) {

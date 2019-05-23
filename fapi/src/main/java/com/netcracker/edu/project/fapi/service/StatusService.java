@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface StatusService {
     List<StatusModel> findAll();
+
     StatusModel getStatusById(int id);
+
     StatusModel findByStatus(String status);
 }

@@ -8,7 +8,8 @@ public class PriorityModel {
     private int id;
     private String priority;
 
-    public PriorityModel(){}
+    public PriorityModel() {
+    }
 
     public PriorityModel(int id, String priority) {
         this.id = id;

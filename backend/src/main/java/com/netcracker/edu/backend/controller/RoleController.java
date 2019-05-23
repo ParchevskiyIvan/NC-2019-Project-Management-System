@@ -4,7 +4,10 @@ import com.netcracker.edu.backend.entity.RoleEntity;
 import com.netcracker.edu.backend.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,15 +20,15 @@ public class RoleController {
     private RoleService roleService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<RoleEntity> getRoles(){
+    public List<RoleEntity> getRoles() {
         return roleService.findAll();
     }
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<RoleEntity> getRoleById(@PathVariable(name = "id") Integer id){
+    public ResponseEntity<RoleEntity> getRoleById(@PathVariable(name = "id") Integer id) {
         Optional<RoleEntity> role = roleService.getRoleById(id);
-        if(role.isPresent()){
+        if (role.isPresent()) {
             return ResponseEntity.ok(role.get());
         } else {
             return ResponseEntity.notFound().build();

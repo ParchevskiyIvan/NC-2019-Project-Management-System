@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface RoleService {
     List<RoleEntity> findAll();
+
     Optional<RoleEntity> getRoleById(Integer id);
 }

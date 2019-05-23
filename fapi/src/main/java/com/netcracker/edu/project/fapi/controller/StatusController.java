@@ -19,15 +19,17 @@ public class StatusController {
     private StatusService statusService;
 
     @GetMapping
-    public ResponseEntity<List<StatusModel>> getAllStatus(){
+    public ResponseEntity<List<StatusModel>> getAllStatus() {
         return ResponseEntity.ok(statusService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StatusModel> getStatusById(@PathVariable int id){
+    public ResponseEntity<StatusModel> getStatusById(@PathVariable int id) {
         return ResponseEntity.ok(statusService.getStatusById(id));
     }
 
     @GetMapping("/status/{status}")
-    public StatusModel getStatusByStatus(@PathVariable String status){return statusService.findByStatus(status);}
+    public StatusModel getStatusByStatus(@PathVariable String status) {
+        return statusService.findByStatus(status);
+    }
 }

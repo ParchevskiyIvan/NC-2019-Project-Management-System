@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CommentService {
     List<CommentModel> findCommentsByTaskId(Integer id);
+
     CommentModel saveComment(CommentModel comment);
 }

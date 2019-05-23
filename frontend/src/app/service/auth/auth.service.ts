@@ -14,6 +14,7 @@ import {NavigationExtras, Router} from "@angular/router";
   public token: string;
 
   public authError: boolean = false;
+  public regError: boolean = false;
 
   constructor(private http: HttpClient,
               private router: Router){
@@ -48,10 +49,10 @@ import {NavigationExtras, Router} from "@angular/router";
         localStorage.setItem("user", JSON.stringify(this.user));
         localStorage.setItem("token", this.token);
         this.router.navigate(['/main']);
-      }, error1 => {
-        this.toErrorPage(error1);
+      }, error => {
+        this.authError = true;
       })
-    }, error1 => {
+    }, error => {
       this.authError = true;
     })
   }
@@ -65,10 +66,10 @@ import {NavigationExtras, Router} from "@angular/router";
         this.user = data;
         //this.router.navigate(['/main']);
       }, error => {
-        this.toErrorPage(error);
+        this.regError = true;
       })
     }, error => {
-      this.toErrorPage(error);
+      this.regError = true;
     })
   }
 
@@ -80,13 +81,4 @@ import {NavigationExtras, Router} from "@angular/router";
     setTimeout(location.reload.bind(location), 100);
   }
 
-  public toErrorPage(error){
-    let nav: NavigationExtras = {
-      queryParams:{
-        "code": error.status,
-        "message": error.statusText
-      }
-    };
-    this.router.navigate(['/error'], nav)
-  }
 }

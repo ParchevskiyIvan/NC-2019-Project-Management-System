@@ -13,12 +13,12 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository repository;
 
     @Override
-    public Iterable<CommentEntity> findCommentsByTaskId(Integer Tasks_id){
+    public Iterable<CommentEntity> findCommentsByTaskId(Integer Tasks_id) {
         return this.repository.findCommentsByTaskId(Tasks_id);
     }
 
     @Override
-    public CommentEntity saveComment(CommentEntity comment){
+    public CommentEntity saveComment(CommentEntity comment) {
         return repository.save(comment);
     }
 }

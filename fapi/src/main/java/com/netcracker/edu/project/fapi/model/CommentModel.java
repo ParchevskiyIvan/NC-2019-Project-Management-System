@@ -9,7 +9,8 @@ public class CommentModel {
     private TaskModel task;
     private UserModel user;
 
-    public CommentModel(){}
+    public CommentModel() {
+    }
 
     public CommentModel(int id, String comment, TaskModel task, UserModel user) {
         this.id = id;

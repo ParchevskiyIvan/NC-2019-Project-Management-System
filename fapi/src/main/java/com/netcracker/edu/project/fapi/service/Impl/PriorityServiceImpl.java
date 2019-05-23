@@ -17,15 +17,10 @@ public class PriorityServiceImpl implements PriorityService {
     private String backendUrl;
 
     @Override
-    public List<PriorityModel> findAll(){
+    public List<PriorityModel> findAll() {
         RestTemplate restTemplate = new RestTemplate();
         PriorityModel[] priorityResponse = restTemplate.getForObject(backendUrl + "/api/priorities", PriorityModel[].class);
         return priorityResponse == null ? Collections.emptyList() : Arrays.asList(priorityResponse);
     }
 
-    @Override
-    public PriorityModel getByPriority(String name) {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backendUrl + "/api/priority/" + name, PriorityModel.class);
-    }
 }

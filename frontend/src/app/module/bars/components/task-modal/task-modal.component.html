@@ -1,65 +1,79 @@
-<button *ngIf="!(auth.user == null)" [disabled]="!(auth.user.role.role === 'ProjectManager')" type="button" class="btn btn-primary" data-toggle="modal" data-target="#newTask">
+<button (click)="reload()" *ngIf="!(auth.user == null)" [disabled]="!(auth.user.role.role === 'ProjectManager')"
+        type="button"
+        class="btn btn-primary" data-toggle="modal" data-target="#newTask">
   New Task
 </button>
 
 <!-- Modal task -->
-<div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="newTaskTitle">Create New Task</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button (click)="clearForm()" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="form-row">
+          <div class="form-row" [formGroup]="formControl">
             <div>
-              <h5 class="text-left">Project:</h5>
+              <h5 class="text-left">Project Code:</h5>
             </div>
-            <select class="custom-select" name="projectselect" [(ngModel)]="newTask.project" id="ProjectSelect" size="4">
+            <select formControlName="projectcode" class="custom-select" name="projectselect"
+                    [(ngModel)]="newTask.project" id="ProjectSelect" size="4">
               <option *ngFor="let project of projects" [ngValue]="project">{{project.projectcode}}</option>
             </select>
             <div>
               <h5 class="text-left">Task description:</h5>
             </div>
             <div class="col-md-12">
-              <input type="text" name="description" class="form-control form-control-lg flat-input"  [(ngModel)]="newTask.description">
+              <textarea type="text" name="description" maxlength="499" required="required"
+                     formControlName="description" class="form-control form-control-lg flat-input desc"
+                        [(ngModel)]="newTask.description"></textarea>
             </div>
             <div>
               <h5 class="text-left">Due date:</h5>
             </div>
             <div class="col-md-12">
-              <input type="date" name="duedate" class="form-control form-control-lg flat-input"  [(ngModel)]="newTask.duedate">
+              <input formControlName="date" type="date" name="duedate" min="2019-05-23"
+                     class="form-control form-control-lg flat-input" [(ngModel)]="newTask.duedate">
             </div>
             <div>
               <h5 class="text-left">Estimation(days):</h5>
             </div>
             <div class="col-md-12">
-              <input type="text" name="estimation" class="form-control form-control-lg flat-input"  [(ngModel)]="newTask.estimation">
+              <input type="text" name="estimation" autocomplete="off" formControlName="estimation" maxlength="2"
+                     class="form-control form-control-lg flat-input" [(ngModel)]="newTask.estimation">
             </div>
             <div>
               <h5 class="text-left">Priority:</h5>
             </div>
-            <select class="custom-select" name="priorityselect" [(ngModel)]="newTask.priority" id="PrioritySelect">
+            <select formControlName="priority" class="custom-select" name="priorityselect"
+                    [(ngModel)]="newTask.priority" id="PrioritySelect" size="4">
               <option *ngFor="let priority of priorities" [ngValue]="priority">{{priority.priority}}</option>
             </select>
             <div>
               <h5 class="text-left">Assignee:</h5>
             </div>
-            <select class="custom-select" name="assigneeselect" [(ngModel)]="newTask.assignee" id="AssigneeSelect" size="4">
-              <option *ngFor="let assignee of assignees" [ngValue]="assignee">{{assignee.name}}({{assignee.role.role}})</option>
-
+            <select formControlName="assignee" class="custom-select" name="assigneeselect"
+                    [(ngModel)]="newTask.assignee" id="AssigneeSelect" size="4">
+              <option *ngFor="let assignee of assignees"
+                      [ngValue]="assignee">{{assignee.name + ' ' + assignee.surname + '(' + assignee.role.role + ')'}}
+              </option>
             </select>
-
-
           </div>
         </form>
-
+      </div>
+      <div *ngIf="!formControl.valid">
+        <hr>
+        <p><b>All fields, except assignee, should be filled</b></p>
       </div>
       <div class="modal-footer">
-        <button (click)="saveTask()" type="submit" class="btn btn-primary">Save</button>
+        <button [disabled]="!formControl.valid" (click)="saveTask()" type="submit"
+                class="btn btn-primary">Save
+        </button>
       </div>
     </div>
   </div>

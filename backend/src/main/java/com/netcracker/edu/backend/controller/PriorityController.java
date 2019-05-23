@@ -16,7 +16,7 @@ public class PriorityController {
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Iterable<PriorityEntity> getAllPriority(){
+    public Iterable<PriorityEntity> getAllPriority() {
         return priorityService.getAllPriority();
     }
 }

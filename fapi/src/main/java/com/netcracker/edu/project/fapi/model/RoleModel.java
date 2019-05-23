@@ -8,10 +8,10 @@ public class RoleModel {
     private int id;
     private String role;
 
-    public RoleModel(){
+    public RoleModel() {
     }
 
-    public RoleModel(int id, String role){
+    public RoleModel(int id, String role) {
         this.id = id;
         this.role = role;
     }

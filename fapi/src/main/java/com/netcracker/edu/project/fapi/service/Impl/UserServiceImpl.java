@@ -5,7 +5,6 @@ import com.netcracker.edu.project.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,7 +24,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public UserModel saveUser(UserModel userModel) {
-        RestTemplate restTemplate=new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
         userModel.setPassword(bCrypt.encode(userModel.getPassword()));
         return restTemplate.postForEntity(backendServerUrl + "/api/users", userModel, UserModel.class).getBody();
     }
@@ -54,7 +53,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserModel user = findByEmail(s);
-        return new  org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(UserModel user) {

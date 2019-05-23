@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { BottombarComponent } from './components/bottombar/bottombar.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import {UserService} from "../../service/user/user.service";
 import {RoleService} from "../../service/role/role.service";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {UserModalComponent} from "./components/user-modal/user-modal.component";
 import {TaskModalComponent} from "./components/task-modal/task-modal.component";
 import {ProjectModalComponent} from "./components/project-modal/project-modal.component";
@@ -12,10 +11,11 @@ import {RouterModule} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {ProjectService} from "../../service/project/project.service";
 import {StatusService} from "../../service/status/status.service";
+import {NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
-    BottombarComponent,
     TopbarComponent,
     UserModalComponent,
     TaskModalComponent,
@@ -23,12 +23,13 @@ import {StatusService} from "../../service/status/status.service";
   ],
   imports: [
     FormsModule,
+    NgbModalModule.forRoot(),
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
     BrowserModule
   ],
   exports: [
-    BottombarComponent,
     TopbarComponent,
     UserModalComponent,
     TaskModalComponent,
@@ -36,6 +37,7 @@ import {StatusService} from "../../service/status/status.service";
     ProjectModalComponent
   ],
   providers:[
+    DatePipe,
     UserService,
     RoleService,
     ProjectService,

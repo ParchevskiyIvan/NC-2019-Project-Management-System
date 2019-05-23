@@ -23,3 +23,11 @@
   top: 20px;
   bottom: 100px;
 }
+
+.names{
+  text-transform: capitalize;
+}
+
+.wdi-red{
+  color: #DD3247;
+}

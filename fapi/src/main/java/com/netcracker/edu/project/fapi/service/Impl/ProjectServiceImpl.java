@@ -19,7 +19,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectModel saveProject(ProjectModel project) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(backendServerUrl + "/api/projects",project, ProjectModel.class).getBody();
+        return restTemplate.postForEntity(backendServerUrl + "/api/projects", project, ProjectModel.class).getBody();
     }
 
     public List<ProjectModel> findAll() {
@@ -29,15 +29,11 @@ public class ProjectServiceImpl implements ProjectService {
         return projects == null ? Collections.emptyList() : Arrays.asList(projects);
     }
 
+
     @Override
-    public ProjectModel getProjectById(Integer id) {
+    public ProjectModel findByCode(String code) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(backendServerUrl + "/api/project/" + id, ProjectModel.class);
-
-    }
-
-    @Override
-    public ProjectModel getProjectByCode(String code) {
-        return new RestTemplate().getForObject(backendServerUrl + "/api/project/" + code, ProjectModel.class);
+        ProjectModel projectModel = restTemplate.getForObject(backendServerUrl + "/api/projects/code/" + code, ProjectModel.class);
+        return projectModel;
     }
 }

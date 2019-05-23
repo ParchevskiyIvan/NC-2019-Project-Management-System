@@ -1,4 +1,5 @@
 package com.netcracker.edu.project.fapi.controller;
+
 import com.netcracker.edu.project.fapi.model.UserModel;
 import com.netcracker.edu.project.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +17,29 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public List<UserModel> getAllUsers(){
+    public List<UserModel> getAllUsers() {
         return userService.findAll();
     }
 
-    @GetMapping("/email/{email}")
-    public UserModel getUserByEmail(@PathVariable String email) {
-        return userService.findByEmail(email);
+    @PostMapping("/email")
+    public ResponseEntity<Boolean> getUserByEmail(@RequestBody String email) {
+        UserModel user = userService.findByEmail(email);
+        if (user == null) return ResponseEntity.ok(false);
+        else return ResponseEntity.ok(true);
     }
 
     @GetMapping("/name/{name}")
-    public UserModel getUserByName(@PathVariable String name){return  userService.findByName(name);}
+    public UserModel getUserByName(@PathVariable String name) {
+        return userService.findByName(name);
+    }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public UserModel saveUser(@RequestBody UserModel userModel){
+    public UserModel saveUser(@RequestBody UserModel userModel) {
         return userService.saveUser(userModel);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserModel> getUserById(@PathVariable int id){
+    public ResponseEntity<UserModel> getUserById(@PathVariable int id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 }
